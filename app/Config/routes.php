@@ -31,6 +31,25 @@
  */
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 
+/* Sales */
+	Router::connect('/sales/:action/:from,:till/*',
+		array('controller' => 'sales', 'action' => 'index'),
+		array(
+			'pass' => array('from','till'),
+			'from' => '\d{4}-\d\d-\d\d',
+			'till' => '\d{4}-\d\d-\d\d'
+		));
+	Router::connect('/sales/*',
+		array('controller' => 'sales', 'action' => 'index', '2005-01-01', date('Y-m-d')),
+		array(
+			'pass' => array('from','till'),
+			'from' => '\d{4}-\d\d-\d\d',
+			'till' => '\d{4}-\d\d-\d\d'
+		));
+
+
+	Router::parseExtensions('csv');
+
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.
